@@ -1,0 +1,86 @@
+body{
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.title{
+    margin-left: 200px; 
+}
+
+.logout{
+    float: right;
+    top: 20px;
+    margin: 10px;
+}
+
+.panel-button{
+    margin: auto;
+}
+
+.container-dashboard {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 0.75fr;
+    grid-template-rows: auto;    
+    grid-column-gap: 10px;
+    grid-template-areas: 
+      "header header header"
+      "main orders sidebar"
+      "footer footer sidebar";
+  }
+
+  .header-item{
+    grid-area: header;
+  }
+
+  .machine-log{
+    grid-area: footer;
+    overflow-y: scroll;
+    height: 25vh;
+  }
+
+  .container-expense{
+    grid-area: main;
+  }
+
+  .panel-machine{
+    grid-area: sidebar;
+    padding: 10px;
+    overflow-y: scroll;
+  }
+
+  .panel-orders{
+    grid-area: orders;
+  }
+
+  .item-machine{
+    padding: 10px;
+    margin: 5px;
+  }
+
+  .item-machine-element:hover{
+    color: blue;
+  }
+
+  .warning{
+    color: red;
+    padding-left: 1px;
+  }
+
+  .container-custom{
+    padding: 10px;
+  }
+
+  .machine-btn{
+    width: 297px;
+    margin-left: 5px;
+  }
+
+  .password-btn{
+    width: 250px;
+  }
+
+  .machine-modal-btn{
+    width: 230px;
+  }

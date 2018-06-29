@@ -1,0 +1,39 @@
+.container-machine{
+    display: grid;
+    justify-content: center;	
+    grid-template-columns: 300px 300px;
+    grid-template-rows: auto;
+    grid-column-gap: 100px;
+    grid-template-areas: 
+      "header header"
+      "orders products"
+}
+
+.container-machine-header{
+    grid-area: header;
+}
+
+.container-machine-orders{
+    grid-area: orders;
+    padding: 10px;
+    overflow-y: scroll;
+    height: 80vh;
+}
+
+.container-all-orders {
+    grid-area: orders;
+    padding: 10px;
+    height: 55vh;
+    overflow-y: scroll;
+}
+
+.container-machine-products{
+    grid-area: products;
+    overflow-y: scroll;
+    height: 80vh;
+}
+
+.product-btn{
+    width: 272px;
+}
+
