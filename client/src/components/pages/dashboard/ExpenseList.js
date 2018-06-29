@@ -15,9 +15,9 @@ class ExpenseList extends Component {
                     </button>
                 <br />
                 <br />
-                Наем: ${this.props.expenses.rent || 0}<br />
-                Електричество: ${this.props.expenses.electricity || 0}<br />
-                Други: ${this.props.expenses.others || 0}<br />
+                Наем: {this.props.expenses.rent || 0} лв<br />
+                Електричество: {this.props.expenses.electricity || 0} лв<br />
+                Други: {this.props.expenses.others || 0} лв<br />
             </div>
         );
     }

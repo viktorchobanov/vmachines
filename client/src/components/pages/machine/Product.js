@@ -26,7 +26,7 @@ class Product extends Component {
         <div onClick={this.props.toggleProductModal}>
         <h4><b>Продукт: {this.props.product.name}</b></h4>
         <ul>
-            <li>Количество: {this.props.product.amount}</li>
+            <li>Количество: {this.props.product.amount} бр</li>
             <li>Цена: {this.props.product.price} лв </li>
             <li>Цена на зареждане: {this.props.product.cost} лв </li>
         </ul>

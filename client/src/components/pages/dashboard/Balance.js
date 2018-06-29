@@ -13,9 +13,9 @@ class Balance extends Component {
                         Баланс:
                     </h3>
                 </div>
-                Приходи: ${Math.round(this.props.income * 100) /100}<br />
-                Разходи: ${this.props.expenses.rent} <br />
-                Печалба: ${Math.round((this.props.income - this.props.expenses.rent) * 100) /100}<br />
+                Приходи: {Math.round(this.props.income * 100) /100} лв<br />
+                Разходи: {this.props.expenses.rent} лв<br />
+                Печалба: {Math.round((this.props.income - this.props.expenses.rent) * 100) /100} лв<br />
             </div>
         );
     }
