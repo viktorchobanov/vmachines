@@ -20,7 +20,7 @@ app.use(cors())
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "client", "build")))
+app.use(express.static(path.join(__dirname, "build")))
 app.use('/api', appRoutes);
 
 var options = {
@@ -39,7 +39,7 @@ mongoose.connect(uri, options)
     });
 
 app.get('/*', function(req, res){
-    res.sendFile(path.join(__dirname, '/client/build/index.html'));
+    res.sendFile(path.join(__dirname, '/build/index.html'));
 });
 
 app.listen(port, () => {
