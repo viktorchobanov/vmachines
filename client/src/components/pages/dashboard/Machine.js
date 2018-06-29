@@ -11,7 +11,7 @@ class Machine extends Component {
   deleteMachine() {
     var self = this;
 
-    axios.delete(`http://localhost:4000/api/machine/${self.props.machineID}`)
+    axios.delete(` /api/machine/${self.props.machineID}`)
     .then((res) => {
       console.log('Deleted!')
     })

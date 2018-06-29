@@ -43,7 +43,7 @@ class UserModal extends Component {
     var self = this;
     var username = jwt.decode(localStorage.getItem('jwtToken')).username;
 
-    axios.put('http://localhost:4000/api/user', {
+    axios.put('/api/user', {
       username: username,
       oldPassword: self.state.oldPassword,
       newPassword: self.state.newPassword

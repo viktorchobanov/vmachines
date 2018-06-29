@@ -43,7 +43,7 @@ class ExpenseModal extends Component {
     e.preventDefault();
     var self = this;
 
-    axios.post('http://localhost:4000/api/expense', self.state.newExpense)
+    axios.post(' /api/expense', self.state.newExpense)
       .then((res) => {
         self.props.toggleModal();
       })

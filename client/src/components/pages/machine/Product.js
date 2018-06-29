@@ -11,7 +11,7 @@ class Product extends Component {
   deleteProduct() {
     var self = this;
 
-    axios.delete(`http://localhost:4000/api/product/${this.props.product.name}`)
+    axios.delete(` /api/product/${this.props.product.name}`)
     .then((res) => {
       console.log('Deleted');
     })

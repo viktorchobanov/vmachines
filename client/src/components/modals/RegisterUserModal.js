@@ -39,7 +39,7 @@ class UserModal extends Component {
     var self = this;
     
     if(self.validateInput()){
-      axios.post('http://localhost:4000/api/user', self.state.newUser)
+      axios.post(' /api/user', self.state.newUser)
       .then((res) => {
         self.props.toggleModal();
       })

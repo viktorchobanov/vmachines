@@ -47,7 +47,7 @@ class MachinePanel extends Component {
     var self = this;
 
     axios
-      .get('http://localhost:4000/api/products')
+      .get(' /api/products')
       .then((res) => {
         self.setState({
           products: res.data
@@ -60,7 +60,7 @@ class MachinePanel extends Component {
       });
 
     axios
-      .get('http://localhost:4000/api/orders')
+      .get(' /api/orders')
       .then((res) => {
         self.setState({
           orders: res.data

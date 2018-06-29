@@ -42,7 +42,7 @@ class ProductModal extends Component {
     e.preventDefault();
     var self = this
 
-    axios.post('http://localhost:4000/api/product', self.state.newProduct)
+    axios.post(' /api/product', self.state.newProduct)
     .then((res) => {
       self.props.toggleProductModal();
     })

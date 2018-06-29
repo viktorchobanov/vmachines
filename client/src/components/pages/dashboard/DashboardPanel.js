@@ -61,7 +61,7 @@ class DashboardPanel extends Component {
     var self = this;
 
     axios
-    .get('http://localhost:4000/api/machines')
+    .get(' /api/machines')
     .then((res) => {
       self.setState({
         machines: res.data
@@ -74,7 +74,7 @@ class DashboardPanel extends Component {
     });
 
     axios
-    .get('http://localhost:4000/api/orders')
+    .get(' /api/orders')
     .then((res) => {
       self.setState({
         orders: res.data
@@ -87,7 +87,7 @@ class DashboardPanel extends Component {
     });
 
     axios
-    .get('http://localhost:4000/api/expenses')
+    .get(' /api/expenses')
     .then((res) => {
       var totalExpenses = res.data.rent + res.data.electricity + res.data.other;
 
@@ -103,7 +103,7 @@ class DashboardPanel extends Component {
     });
 
     axios
-    .get('http://localhost:4000/api/income')
+    .get(' /api/income')
     .then((res) => {
       self.setState({
         income: res.data.income
@@ -116,7 +116,7 @@ class DashboardPanel extends Component {
     });
 
     axios
-    .get('http://localhost:4000/api/messages')
+    .get(' /api/messages')
     .then((res) => {
       self.setState({
         messages: res.data

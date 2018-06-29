@@ -14,7 +14,7 @@ export function logout() {
 
 export function login(data) {
     return dispatch => {
-        return axios.post('http://localhost:4000/api/authenticate', data).then(res => {
+        return axios.post('/api/authenticate', data).then(res => {
             const token = res.data.token;
             if (token) {
                 localStorage.setItem('jwtToken', token);

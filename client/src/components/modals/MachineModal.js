@@ -45,7 +45,7 @@ class MachineModal extends Component {
     e.preventDefault();
     var self = this;
     
-    axios.post('http://localhost:4000/api/machine', this.state.newMachine)
+    axios.post(' /api/machine', this.state.newMachine)
     .then((res) => {
       self.props.updateRoot();
       self.props.toggleMachineModal();
