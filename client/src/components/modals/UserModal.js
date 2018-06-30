@@ -66,6 +66,7 @@ class UserModal extends Component {
         <Modal
           isOpen={this.props.showUserModal}
           onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.props.toggleUserModal}
           style={customStyles}
           contentLabel="Change Password"
         >

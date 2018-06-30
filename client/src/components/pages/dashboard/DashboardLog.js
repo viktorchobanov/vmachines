@@ -11,7 +11,7 @@ class DashboardLog extends Component {
             <div className="panel panel-info machine-log container-custom">
                 <div className="panel panel-info container-custom">
                     <h3>
-                        Machines log:
+                        Известия:
                 </h3>
                 </div>
 

@@ -61,6 +61,7 @@ class ProductModal extends Component {
         <Modal
           isOpen={this.props.showProductModal}
           onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.props.toggleProductModal}
           style={customStyles}
           contentLabel="Add Product"
         >

@@ -197,6 +197,18 @@ module.exports = {
         });
     },
 
+    getMachineByID: function (req, res) {
+        var machineID = req.params.machineID;
+
+        Machine.findOne({
+            machineID: machineID
+        })
+        .select('machineID products')
+        .exec(function(err, machine) {
+            res.send(machine);
+        });
+    },
+
     getAllUsers: function (req, res) {
         User.find({}, function (err, users) {
             res.send(users);
@@ -287,7 +299,7 @@ module.exports = {
                     res.json({ success: false, message: 'Invalid username or password!' });
                 } else if (user) {
                     var isValid = user.authenticate(req.body.oldPassword);
-                    
+
                     if (isValid) {
                         User.findOneAndUpdate({
                             username

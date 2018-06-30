@@ -74,7 +74,7 @@ class DashboardPanel extends Component {
     });
 
     axios
-    .get(' /api/orders')
+    .get('/api/orders')
     .then((res) => {
       self.setState({
         orders: res.data
@@ -87,7 +87,7 @@ class DashboardPanel extends Component {
     });
 
     axios
-    .get(' /api/expenses')
+    .get('/api/expenses')
     .then((res) => {
       var totalExpenses = res.data.rent + res.data.electricity + res.data.other;
 
@@ -103,7 +103,7 @@ class DashboardPanel extends Component {
     });
 
     axios
-    .get(' /api/income')
+    .get('/api/income')
     .then((res) => {
       self.setState({
         income: res.data.income
@@ -116,7 +116,7 @@ class DashboardPanel extends Component {
     });
 
     axios
-    .get(' /api/messages')
+    .get('/api/messages')
     .then((res) => {
       self.setState({
         messages: res.data
@@ -148,6 +148,8 @@ class DashboardPanel extends Component {
   }
 
   render() {
+    // var username = localStorage.getItem('jwtToken') && jwt.decode(localStorage.getItem('jwtToken')).username || "";
+
     return (
       <div className="container-dashboard">
         <Header logout={this.props.logout} showUserModal={this.state.showUserModal} toggleUserModal={this.toggleUserModal} />

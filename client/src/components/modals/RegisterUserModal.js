@@ -73,7 +73,7 @@ class UserModal extends Component {
       <div>
         <Modal
           isOpen={this.props.registerModalOpen}
-          onRequestClose={this.props.closeModal}
+          onRequestClose={this.props.toggleModal}
           style={customStyles}
           contentLabel="Register"
         >

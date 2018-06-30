@@ -13,6 +13,11 @@ class MachinePanel extends Component {
     this.state = {
       products: [],
       orders: [],
+      machineInfo: {
+        _id: '',
+        machineID: 1,
+        products: []
+      },
       showProductModal: false
     }
 
@@ -46,8 +51,25 @@ class MachinePanel extends Component {
   getData() {
     var self = this;
 
+    const { match: { params } } = this.props;
+
+    var machineID = params.machineID;
+
     axios
-      .get(' /api/products')
+      .get(`/api/machine/${machineID}/info`)
+      .then((res) => {
+        self.setState({
+          machineInfo: res.data
+        });
+
+        self.forceUpdate();
+      })
+      .catch((err) => {
+        console.log('Error getting machine info!');
+      });
+
+    axios
+      .get('/api/products')
       .then((res) => {
         self.setState({
           products: res.data
@@ -60,7 +82,7 @@ class MachinePanel extends Component {
       });
 
     axios
-      .get(' /api/orders')
+      .get('/api/orders')
       .then((res) => {
         self.setState({
           orders: res.data
@@ -76,7 +98,7 @@ class MachinePanel extends Component {
   render() {
     return (
       <div className="container-machine">
-        <Header machineID={this.props.machineID} className="container-machine-header" />
+        <Header machineID={this.state.machineInfo.machineID} token={this.state.machineInfo._id} className="container-machine-header" />
         <ProductList products={this.state.products} toggleProductModal={this.toggleProductModal} />
         <OrdersList orders={this.state.orders} className="container-machine-orders" />
         <ProductModal toggleProductModal={this.toggleProductModal} showProductModal={this.state.showProductModal} />

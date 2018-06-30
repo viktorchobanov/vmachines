@@ -62,7 +62,7 @@ class ExpenseModal extends Component {
         <Modal
           isOpen={this.props.showExpenseModal}
           onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
+          onRequestClose={this.props.toggleModal}
           style={customStyles}
           contentLabel="Expense"
         >

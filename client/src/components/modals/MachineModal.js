@@ -65,6 +65,7 @@ class MachineModal extends Component {
         <Modal
           isOpen={this.props.showMachineModal}
           onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.props.toggleMachineModal}
           style={customStyles}
           contentLabel="Add Machine"
         >

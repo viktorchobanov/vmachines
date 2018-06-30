@@ -16,6 +16,8 @@ module.exports = function(router){
     router.get('/users', controller.getAllUsers);
     
     router.get('/machines', controller.getAllMachines);
+
+    router.get('/machine/:machineID/info', controller.getMachineByID);
     
     router.get('/expenses', controller.getAllExpenses);
     

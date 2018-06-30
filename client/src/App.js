@@ -47,7 +47,7 @@ class App extends Component {
                 return localStorage.jwtToken ? (<Route component={DashboardPanel} />)
                   : (<Route component={Login} />)
               }} />
-              <Route exact path="/machine/:machineId" render={() => {
+              <Route exact path="/machine/:machineID" render={() => {
                 return localStorage.jwtToken ? (<Route component={MachinePanel} />)
                   : (<Route component={Login} />)
               }} />
