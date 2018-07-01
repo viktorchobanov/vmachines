@@ -39,7 +39,7 @@ class UserModal extends Component {
     var self = this;
     
     if(self.validateInput()){
-      axios.post(' /api/user', self.state.newUser)
+      axios.post('/api/user', self.state.newUser)
       .then((res) => {
         self.props.toggleModal();
       })
@@ -60,7 +60,7 @@ class UserModal extends Component {
       this.state.newUser.username != '' &&
       this.state.newUser.password != '' &&
       this.state.newUser.email != '' &&
-      this.state.newUser.password == this.state.newUser.passwordAgain
+      !this.state.newUser.password.localeCompare(this.state.newUser.passwordAgain)
     ) {
       isValid = true;
     }

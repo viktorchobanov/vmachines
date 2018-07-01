@@ -69,7 +69,7 @@ class MachinePanel extends Component {
       });
 
     axios
-      .get('/api/products')
+      .get(`/api/products/${machineID}`)
       .then((res) => {
         self.setState({
           products: res.data
@@ -82,7 +82,7 @@ class MachinePanel extends Component {
       });
 
     axios
-      .get('/api/orders')
+      .get(`/api/orders/machineID/${machineID}`)
       .then((res) => {
         self.setState({
           orders: res.data
@@ -101,7 +101,7 @@ class MachinePanel extends Component {
         <Header machineID={this.state.machineInfo.machineID} token={this.state.machineInfo._id} className="container-machine-header" />
         <ProductList products={this.state.products} toggleProductModal={this.toggleProductModal} />
         <OrdersList orders={this.state.orders} className="container-machine-orders" />
-        <ProductModal toggleProductModal={this.toggleProductModal} showProductModal={this.state.showProductModal} />
+        <ProductModal machineID={this.state.machineInfo.machineID} toggleProductModal={this.toggleProductModal} showProductModal={this.state.showProductModal} />
       </div>
     );
   }

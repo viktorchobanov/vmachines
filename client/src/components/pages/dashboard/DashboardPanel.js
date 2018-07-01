@@ -59,9 +59,10 @@ class DashboardPanel extends Component {
 
   getData() {
     var self = this;
+    var owner = localStorage.getItem('jwtToken') && jwt.decode(localStorage.getItem('jwtToken')).username;
 
     axios
-    .get(' /api/machines')
+    .get(`/api/machines/${owner}`)
     .then((res) => {
       self.setState({
         machines: res.data
@@ -74,7 +75,7 @@ class DashboardPanel extends Component {
     });
 
     axios
-    .get('/api/orders')
+    .get(`/api/orders/${owner}`)
     .then((res) => {
       self.setState({
         orders: res.data
@@ -87,7 +88,7 @@ class DashboardPanel extends Component {
     });
 
     axios
-    .get('/api/expenses')
+    .get(`/api/expenses/${owner}`)
     .then((res) => {
       var totalExpenses = res.data.rent + res.data.electricity + res.data.other;
 
@@ -103,7 +104,7 @@ class DashboardPanel extends Component {
     });
 
     axios
-    .get('/api/income')
+    .get(`/api/income/${owner}`)
     .then((res) => {
       self.setState({
         income: res.data.income
@@ -116,7 +117,7 @@ class DashboardPanel extends Component {
     });
 
     axios
-    .get('/api/messages')
+    .get(`/api/messages/${owner}`)
     .then((res) => {
       self.setState({
         messages: res.data
@@ -148,7 +149,7 @@ class DashboardPanel extends Component {
   }
 
   render() {
-    // var username = localStorage.getItem('jwtToken') && jwt.decode(localStorage.getItem('jwtToken')).username || "";
+    var owner = localStorage.getItem('jwtToken') && jwt.decode(localStorage.getItem('jwtToken')).username;
 
     return (
       <div className="container-dashboard">
@@ -157,14 +158,14 @@ class DashboardPanel extends Component {
         <div className="container-expense">
           <Balance income={this.state.income} expenses={this.state.expenses} />
           <ExpenseList expenses={this.state.expenses} showExpenseModal={this.state.showExpenseModal} toggleModal={this.toggleExpenseModal} />
-          <ExpenseModal machines={this.state.machines} showExpenseModal={this.state.showExpenseModal} toggleModal={this.toggleExpenseModal} />
+          <ExpenseModal owner={owner} machines={this.state.machines} showExpenseModal={this.state.showExpenseModal} toggleModal={this.toggleExpenseModal} />
         </div>
         <div className="panel-orders">
           <OrdersList orders={this.state.orders} className="container-all-orders" />
         </div>
         <DashboardLog messages={this.state.messages} />
         <MachineList machines={this.state.machines} showMachineModal={this.state.showMachineModal} toggleMachineModal={this.toggleMachineModal} />
-        <MachineModal showMachineModal={this.state.showMachineModal} toggleMachineModal={this.toggleMachineModal} />
+        <MachineModal owner={owner} showMachineModal={this.state.showMachineModal} toggleMachineModal={this.toggleMachineModal} />
       </div>
     );
   }

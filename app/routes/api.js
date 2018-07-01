@@ -15,19 +15,21 @@ module.exports = function(router){
     
     router.get('/users', controller.getAllUsers);
     
-    router.get('/machines', controller.getAllMachines);
+    router.get('/machines/:owner', controller.getAllMachines);
 
     router.get('/machine/:machineID/info', controller.getMachineByID);
     
-    router.get('/expenses', controller.getAllExpenses);
+    router.get('/expenses/:owner', controller.getAllExpenses);
     
-    router.get('/orders', controller.getAllOrders);
+    router.get('/orders/:owner', controller.getAllOrders);
+
+    router.get('/orders/machineID/:machineID', controller.getAllOrdersByMachineID);
     
-    router.get('/products', controller.getAllProducts);
+    router.get('/products/:machineID', controller.getAllProducts);
 
-    router.get('/messages', controller.getAllMessages);
+    router.get('/messages/:owner', controller.getAllMessages);
 
-    router.get('/income', controller.getIncome);
+    router.get('/income/:owner', controller.getIncome);
 
     router.put('/user', controller.updatePassword);
     

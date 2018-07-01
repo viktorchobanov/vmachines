@@ -25,7 +25,8 @@ class ProductModal extends Component {
         name: '',
         amount: '',
         price: '',
-        cost: ''
+        cost: '',
+        machineID: ''
       }
     }
 
@@ -42,7 +43,9 @@ class ProductModal extends Component {
     e.preventDefault();
     var self = this
 
-    axios.post(' /api/product', self.state.newProduct)
+    self.state.newProduct.machineID = self.props.machineID;
+
+    axios.post('/api/product', self.state.newProduct)
     .then((res) => {
       self.props.toggleProductModal();
     })

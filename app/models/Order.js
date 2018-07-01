@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 var Product = require('./Product').schema;
 
 var OrderSchema = new Schema({
-    machineID: { type: Number, required: true },
+    machineID: { type: String, required: true },
     order: { type: Product, required: true }
 }, { collection: 'orders' });
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import jwt from 'jsonwebtoken';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
 const customStyles = {
@@ -20,12 +22,14 @@ Modal.setAppElement('#root')
 class ExpenseModal extends Component {
   constructor(props) {
     super(props);
+    var self = this;
 
     this.state = {
       newExpense: {
         type: 'rent',
         amount: '',
-        machine: 'all'
+        machine: 'all',
+        owner: self.props.owner
       }
     };
 
@@ -43,7 +47,7 @@ class ExpenseModal extends Component {
     e.preventDefault();
     var self = this;
 
-    axios.post(' /api/expense', self.state.newExpense)
+    axios.post('/api/expense', self.state.newExpense)
       .then((res) => {
         self.props.toggleModal();
       })
@@ -99,4 +103,4 @@ class ExpenseModal extends Component {
   }
 }
 
-export default ExpenseModal;
+export default connect(null)(ExpenseModal);

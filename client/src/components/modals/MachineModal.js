@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import jwt from 'jsonwebtoken';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
 const customStyles = {
@@ -18,8 +20,10 @@ const customStyles = {
 Modal.setAppElement('#root')
 
 class MachineModal extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    var self = this;
+
     this.state = {
       newMachine: {
         country: '',
@@ -27,7 +31,7 @@ class MachineModal extends Component {
         city: '',
         street: '',
         type: '',
-        username: 'test',
+        owner: self.props.owner
       }
     }
 
@@ -44,10 +48,9 @@ class MachineModal extends Component {
   onSubmit(e) {
     e.preventDefault();
     var self = this;
-    
-    axios.post(' /api/machine', this.state.newMachine)
+
+    axios.post('/api/machine', self.state.newMachine)
     .then((res) => {
-      self.props.updateRoot();
       self.props.toggleMachineModal();
     })
     .catch((err) => {
@@ -92,4 +95,4 @@ class MachineModal extends Component {
   }
 }
 
-export default MachineModal;
+export default connect(null)(MachineModal);

@@ -51,6 +51,7 @@ module.exports = {
     addMachine: function (req, res) {
         var newMachine = new Machine();
 
+        newMachine.owner = req.body.owner;
         newMachine.country = req.body.country;
         newMachine.state = req.body.state;
         newMachine.city = req.body.city;
@@ -62,9 +63,9 @@ module.exports = {
             newMachine.machineID = machines.length + 1;
 
             User.findOne({
-                username: req.body.username
+                username: req.body.owner
             }, (err, user) => {
-                newMachine.owner = user;
+                newMachine.owner = user.username;
 
                 newMachine.save((err) => {
                     if (err) {
@@ -83,6 +84,7 @@ module.exports = {
 
         newExpense.type = req.body.type;
         newExpense.amount = req.body.amount;
+        newExpense.owner = req.body.owner;
 
         var machineID = req.body.machineID;
 
@@ -108,6 +110,7 @@ module.exports = {
         newProduct.amount = req.body.amount;
         newProduct.price = req.body.price;
         newProduct.cost = req.body.cost;
+        newProduct.machineID = req.body.machineID;
 
         Product.findOne({
             name: newProduct.name
@@ -143,6 +146,7 @@ module.exports = {
 
         var productName = req.body.productName;
         var machineID = req.body.machineID;
+        var owner = req.body.owner;
         newOrder.machineID = machineID;
 
         Product.findOne({
@@ -156,6 +160,7 @@ module.exports = {
 
                     newMessage.machineID = machineID;
                     newMessage.message = `В машината ${machineID} няма повече ${productName}!`;
+                    newMessage.owner = owner;
 
                     newMessage.save((err) => {
                         if (err) {
@@ -192,7 +197,9 @@ module.exports = {
     },
 
     getAllMachines: function (req, res) {
-        Machine.find({}, function (err, machines) {
+        Machine.find({
+            owner: req.params.owner
+        }, function (err, machines) {
             res.send(machines);
         });
     },
@@ -203,10 +210,10 @@ module.exports = {
         Machine.findOne({
             machineID: machineID
         })
-        .select('machineID products')
-        .exec(function(err, machine) {
-            res.send(machine);
-        });
+            .select('machineID products')
+            .exec(function (err, machine) {
+                res.send(machine);
+            });
     },
 
     getAllUsers: function (req, res) {
@@ -216,18 +223,39 @@ module.exports = {
     },
 
     getAllProducts: function (req, res) {
-        Product.find({}, function (err, products) {
+        Product.find({
+            machineID: req.params.machineID
+        }, function (err, products) {
             res.send(products);
         });
     },
 
     getAllOrders: function (req, res) {
-        Order.find({}, function (err, orders) {
+        Machine.find({
+            owner: req.params.owner
+        }).exec((err, machines) => {
+            if (err || !machines) {
+                res.send([]);
+            } else {
+                Order.find({
+                    machineID: machines[0].machineID
+                }, function (err, orders) {
+                    res.send(orders);
+                });
+            }
+        });
+    },
+
+    getAllOrdersByMachineID: function (req, res) {
+        Order.find({
+            machineID: req.params.machineID
+        }, function (err, orders) {
             res.send(orders);
         });
     },
 
     getAllExpenses: function (req, res) {
+        var owner = req.params.owner;
         var expenses = {
             rent: 0,
             electicity: 0,
@@ -235,6 +263,7 @@ module.exports = {
         };
 
         Expense.find({
+            owner: owner,
             type: 'rent'
         })
             .exec(function (err, rentExpenses) {
@@ -243,6 +272,7 @@ module.exports = {
                 });
 
                 Expense.find({
+                    owner: owner,
                     type: 'electicity'
                 })
                     .exec(function (err, electicityExpenses) {
@@ -251,6 +281,7 @@ module.exports = {
                         });
 
                         Expense.find({
+                            owner: owner,
                             type: 'other'
                         })
                             .exec(function (err, otherExpenses) {
@@ -265,7 +296,9 @@ module.exports = {
     },
 
     getAllMessages: function (req, res) {
-        Message.find({}, function (err, messages) {
+        Message.find({
+            owner: req.params.owner
+        }, function (err, messages) {
             res.send(messages);
         });
     },
@@ -377,7 +410,9 @@ module.exports = {
     getIncome: function (req, res) {
         var income = 0;
 
-        Order.find({}).exec((err, orders) => {
+        Order.find({
+            // owner: req.params.owner
+        }).exec((err, orders) => {
             if (err) {
                 res.json({ success: false, msg: 'Error with orders!' });
             }

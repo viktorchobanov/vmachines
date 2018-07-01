@@ -14,7 +14,7 @@ class ProductList extends Component {
                 </button>
 
                 {this.props.products.map((product) => {
-                    return <Product key={product.name} product={product} toggleProductModal={this.props.toggleProductModal} />
+                    return <Product key={product._id} product={product} toggleProductModal={this.props.toggleProductModal} />
                 })}
             </div>
         );

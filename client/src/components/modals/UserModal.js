@@ -43,17 +43,19 @@ class UserModal extends Component {
     var self = this;
     var username = jwt.decode(localStorage.getItem('jwtToken')).username;
 
-    axios.put('/api/user', {
-      username: username,
-      oldPassword: self.state.oldPassword,
-      newPassword: self.state.newPassword
-    })
-      .then((res) => {
-        self.props.toggleUserModal();
+    if (!self.state.newPassword.localeCompare(self.state.newPasswordAgain)) {
+      axios.put('/api/user', {
+        username: username,
+        oldPassword: self.state.oldPassword,
+        newPassword: self.state.newPassword
       })
-      .catch((err) => {
-        console.log('Error changing password!');
-      });
+        .then((res) => {
+          self.props.toggleUserModal();
+        })
+        .catch((err) => {
+          console.log('Error changing password!');
+        });
+    }
   }
 
   updateInput(e, field) {
