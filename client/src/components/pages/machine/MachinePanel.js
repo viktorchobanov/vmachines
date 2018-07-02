@@ -18,13 +18,19 @@ class MachinePanel extends Component {
         machineID: 1,
         products: []
       },
-      showProductModal: false
+      showProductModal: false,
+      machineID: 0
     }
 
     this.toggleProductModal = this.toggleProductModal.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    const { match: { params } } = this.props;
+
+    var machineID = params.machineID;
+    this.setState({machineID: machineID});
+
     this.getData();
     this.isLoggedIn();
 
@@ -51,12 +57,8 @@ class MachinePanel extends Component {
   getData() {
     var self = this;
 
-    const { match: { params } } = this.props;
-
-    var machineID = params.machineID;
-
     axios
-      .get(`/api/machine/${machineID}/info`)
+      .get(`/api/machine/${self.state.machineID}/info`)
       .then((res) => {
         self.setState({
           machineInfo: res.data
@@ -69,7 +71,7 @@ class MachinePanel extends Component {
       });
 
     axios
-      .get(`/api/products/${machineID}`)
+      .get(`/api/products/${self.state.machineID}`)
       .then((res) => {
         self.setState({
           products: res.data
@@ -82,7 +84,7 @@ class MachinePanel extends Component {
       });
 
     axios
-      .get(`/api/orders/machineID/${machineID}`)
+      .get(`/api/orders/machineID/${self.state.machineID}`)
       .then((res) => {
         self.setState({
           orders: res.data
@@ -93,6 +95,10 @@ class MachinePanel extends Component {
       .catch((err) => {
         console.log('Error getting orders!');
       });
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.loginInterval);
   }
 
   render() {

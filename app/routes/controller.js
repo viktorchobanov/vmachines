@@ -231,14 +231,18 @@ module.exports = {
     },
 
     getAllOrders: function (req, res) {
+        var owner = req.params && req.params.owner || 'a';
+
         Machine.find({
-            owner: req.params.owner
+            owner: owner
         }).exec((err, machines) => {
             if (err || !machines) {
                 res.send([]);
             } else {
+                var machineID = machines[0] && machines[0].machineID || 0;
+
                 Order.find({
-                    machineID: machines[0].machineID
+                    machineID: machineID
                 }, function (err, orders) {
                     res.send(orders);
                 });
@@ -247,15 +251,21 @@ module.exports = {
     },
 
     getAllOrdersByMachineID: function (req, res) {
+        var machineID = req.params && req.params.machineID || 0;
+
         Order.find({
-            machineID: req.params.machineID
+            machineID: machineID
         }, function (err, orders) {
-            res.send(orders);
+            if (!orders) {
+                res.send([]);
+            } else {
+                res.send(orders);
+            }
         });
     },
 
     getAllExpenses: function (req, res) {
-        var owner = req.params.owner;
+        var owner = req.params && req.params.owner || 'a';
         var expenses = {
             rent: 0,
             electicity: 0,
@@ -296,10 +306,16 @@ module.exports = {
     },
 
     getAllMessages: function (req, res) {
+        var owner = req.params && req.params.owner || 'a';
+
         Message.find({
-            owner: req.params.owner
+            owner: owner
         }, function (err, messages) {
-            res.send(messages);
+            if (!messages) {
+                res.send([]);
+            } else {
+                res.send(messages);
+            }
         });
     },
 
@@ -409,19 +425,37 @@ module.exports = {
 
     getIncome: function (req, res) {
         var income = 0;
+        var owner = req.params.owner || 'pesho';
 
-        Order.find({
-            // owner: req.params.owner
-        }).exec((err, orders) => {
-            if (err) {
-                res.json({ success: false, msg: 'Error with orders!' });
-            }
+        Machine.find({
+            owner: owner
+        }).select('-_id machineID')
+        .exec(function (err, machines) {
+            var ids = [];
 
-            orders.forEach((order) => {
-                income += (order.order.price - order.order.cost);
+            machines.forEach((machine) => {
+                ids.push(machine.machineID);
             });
 
-            res.json({ income });
+            Order.find({
+                machineID: {
+                    $in: ids
+                }
+            }).exec((err, orders) => {
+                if (err || ! orders) {
+                    res.json({ success: false, msg: 'Error with orders!' });
+                }
+
+                if (orders && orders.length == 0) {
+                    res.json({ income: 0 });
+                } else {
+                    orders.forEach((order) => {
+                        income += (order.order.price - order.order.cost);
+                    });
+
+                    res.json({ income });
+                }
+            });
         });
     }
 }

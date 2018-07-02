@@ -92,7 +92,7 @@ class UserModal extends Component {
               <div className="label-text">Парола отново</div>
             </label>
             <label>
-              <input onChange={(e) => {this.updateInput(e, 'email')}} type="text" required />
+              <input onChange={(e) => {this.updateInput(e, 'email')}} type="email" required />
               <div className="label-text">e-mail</div>
             </label>
             <button onClick={this.registerUser}>Регистрация</button>
