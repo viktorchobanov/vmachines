@@ -42,9 +42,10 @@ class UserModal extends Component {
     e.preventDefault();
     var self = this;
     var username = jwt.decode(localStorage.getItem('jwtToken')).username;
+    var base = 'http://localhost:4000';
 
     if (!self.state.newPassword.localeCompare(self.state.newPasswordAgain)) {
-      axios.put('/api/user', {
+      axios.put(`${base}/api/user`, {
         username: username,
         oldPassword: self.state.oldPassword,
         newPassword: self.state.newPassword
@@ -73,16 +74,16 @@ class UserModal extends Component {
           contentLabel="Change Password"
         >
 
-          <h2 ref={subtitle => this.subtitle = subtitle}>Смяна на парола</h2>
+          <h2 ref={subtitle => this.subtitle = subtitle}>Change Password</h2>
           <form onSubmit={this.onSubmit}>
-            Стара парола: <br />
+            Old password: <br />
             <input onChange={(e) => { this.updateInput(e, 'oldPassword') }} className="form-control" type="password" name="passwordOld" required /><br />
-            Парола: <br />
+            Password: <br />
             <input onChange={(e) => { this.updateInput(e, 'newPassword') }} className="form-control" type="password" name="password" required /><br />
-            Парола отново: <br />
+            Password again: <br />
             <input onChange={(e) => { this.updateInput(e, 'newPasswordAgain') }} className="form-control" type="password" name="passwordAgain" required /><br />
             <button className="btn btn-primary panel-button password-btn" onClick={this.changePassword}>
-              Смяна на парола
+            Change Password
         </button>
           </form>
         </Modal>

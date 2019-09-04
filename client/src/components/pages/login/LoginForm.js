@@ -41,14 +41,14 @@ class LoginForm extends Component {
             <form onSubmit={this.onSubmit}>
                 <label>
                     <input onChange={(e) => { this.updateInput(e, 'username') }} type="text" required />
-                    <div className="label-text">Потребителско име</div>
+                    <div className="label-text">Username</div>
                 </label>
                 <label>
                     <input onChange={(e) => { this.updateInput(e, 'password') }} type="password" required />
-                    <div className="label-text">Парола</div>
+                    <div className="label-text">Password</div>
                 </label>
-                <button>Вход</button><br />
-                <button onClick={this.props.toggleModal}>Регистрация</button>
+                <button>Login</button><br />
+                <button onClick={this.props.toggleModal}>Sign up</button>
             </form>
         );
     }

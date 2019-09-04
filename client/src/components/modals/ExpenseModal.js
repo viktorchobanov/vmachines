@@ -46,8 +46,9 @@ class ExpenseModal extends Component {
   onSubmit(e) {
     e.preventDefault();
     var self = this;
+    var base = 'http://localhost:4000';
 
-    axios.post('/api/expense', self.state.newExpense)
+    axios.post(`${base}/api/expense`, self.state.newExpense)
       .then((res) => {
         self.props.toggleModal();
       })
@@ -71,30 +72,30 @@ class ExpenseModal extends Component {
           contentLabel="Expense"
         >
 
-          <h2 ref={subtitle => this.subtitle = subtitle}>Добави Разход</h2>
+          <h2 ref={subtitle => this.subtitle = subtitle}>Add Expense</h2>
           <form>
-            Вид разход: <br />
+            Expense type: <br />
             <select className="form-control" onChange={(e) => { this.updateInput(e, 'type') }}>
-              <option value="rent">Наем</option>
-              <option value="electricity">Електричество</option>
-              <option value="other">Други</option>
+              <option value="rent">Rent</option>
+              <option value="electricity">Electricity</option>
+              <option value="other">Other</option>
             </select>
             <br />
-            Разход: <br />
+            Expense: <br />
             <input onChange={(e) => { this.updateInput(e, 'amount') }} className="form-control" type="text" name="amount" required />
             <br />
-            Машина: <br />
+            Machine: <br />
             <select className="form-control" onChange={(e) => { this.updateInput(e, 'machine') }}>
-              <option value="all">Всички машини:</option>
+              <option value="all">All machines:</option>
               {
                 this.props.machines.map((machine) => {
-                  return <option value={machine.machineID}>Машина {machine.machineID}</option>
+                  return <option key={machine.machineID} value={machine.machineID}>Machine {machine.machineID}</option>
                 })
               }
             </select><br />
 
             <button className="btn btn-primary panel-button" onClick={this.registerExpense}>
-              <span className="glyphicon glyphicon-plus"></span>Добави Разход
+              <span className="glyphicon glyphicon-plus"></span>Add Expense
                 </button>
           </form>
         </Modal>

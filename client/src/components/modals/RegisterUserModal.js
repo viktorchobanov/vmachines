@@ -37,9 +37,10 @@ class UserModal extends Component {
   onSubmit(e) {
     e.preventDefault();
     var self = this;
+    var base = 'http://localhost:4000';
     
     if(self.validateInput()){
-      axios.post('/api/user', self.state.newUser)
+      axios.post(`${base}/api/user`, self.state.newUser)
       .then((res) => {
         self.props.toggleModal();
       })
@@ -81,21 +82,21 @@ class UserModal extends Component {
           <form onSubmit={this.onSubmit}>
             <label>
               <input onChange={(e) => {this.updateInput(e, 'username')}} type="text" required />
-              <div className="label-text">Потребителско име</div>
+              <div className="label-text">Username</div>
             </label>
             <label>
               <input onChange={(e) => {this.updateInput(e, 'password')}} type="password" required />
-              <div className="label-text">Парола</div>
+              <div className="label-text">Password</div>
             </label>
             <label>
               <input onChange={(e) => {this.updateInput(e, 'passwordAgain')}} type="password" required />
-              <div className="label-text">Парола отново</div>
+              <div className="label-text">Password again</div>
             </label>
             <label>
               <input onChange={(e) => {this.updateInput(e, 'email')}} type="email" required />
               <div className="label-text">e-mail</div>
             </label>
-            <button onClick={this.registerUser}>Регистрация</button>
+            <button onClick={this.registerUser}>Sign Up</button>
           </form>
         </Modal>
       </div>

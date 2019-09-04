@@ -1,11 +1,13 @@
-import React, { Component } from 'react';
-import Header from './Header';
-import ProductList from './ProductList';
-import OrdersList from './OrdersList';
-import ProductModal from '../../modals/ProductModal';
-import jwt from 'jsonwebtoken';
-import axios from 'axios';
-import '../../../css/machine.css';
+import React, { Component } from "react";
+import Header from "./Header";
+import ProductList from "./ProductList";
+import OrdersList from "./OrdersList";
+import ProductModal from "../../modals/ProductModal";
+import { getMachineData } from "../../actions/commonActions";
+import { connect } from "react-redux";
+import jwt from "jsonwebtoken";
+import axios from "axios";
+import "../../../css/machine.css";
 
 class MachinePanel extends Component {
   constructor(props) {
@@ -14,37 +16,41 @@ class MachinePanel extends Component {
       products: [],
       orders: [],
       machineInfo: {
-        _id: '',
+        _id: "",
         machineID: 1,
         products: []
       },
       showProductModal: false,
       machineID: 0
-    }
+    };
 
     this.toggleProductModal = this.toggleProductModal.bind(this);
   }
 
   componentWillMount() {
-    const { match: { params } } = this.props;
+    const {
+      match: { params }
+    } = this.props;
 
     var machineID = params.machineID;
-    this.setState({machineID: machineID});
+    this.setState({ machineID: machineID });
 
-    this.getData();
+    this.props.getMachineData(machineID);
     this.isLoggedIn();
 
     this.loginInterval = setInterval(() => {
       this.isLoggedIn();
-      this.getData();
     }, 2000);
   }
 
   isLoggedIn() {
-    if (!localStorage.getItem('jwtToken')) {
-      window.location.href = '/login';
-    } else if (localStorage.getItem('jwtToken') && !jwt.decode(localStorage.getItem('jwtToken')).username) {
-      window.location.href = '/login';
+    if (!localStorage.getItem("jwtToken")) {
+      window.location.href = "/login";
+    } else if (
+      localStorage.getItem("jwtToken") &&
+      !jwt.decode(localStorage.getItem("jwtToken")).username
+    ) {
+      window.location.href = "/login";
     }
   }
 
@@ -54,63 +60,43 @@ class MachinePanel extends Component {
     });
   }
 
-  getData() {
-    var self = this;
-
-    axios
-      .get(`/api/machine/${self.state.machineID}/info`)
-      .then((res) => {
-        self.setState({
-          machineInfo: res.data
-        });
-
-        self.forceUpdate();
-      })
-      .catch((err) => {
-        console.log('Error getting machine info!');
-      });
-
-    axios
-      .get(`/api/products/${self.state.machineID}`)
-      .then((res) => {
-        self.setState({
-          products: res.data
-        });
-
-        self.forceUpdate();
-      })
-      .catch((err) => {
-        console.log('Error getting orders!');
-      });
-
-    axios
-      .get(`/api/orders/machineID/${self.state.machineID}`)
-      .then((res) => {
-        self.setState({
-          orders: res.data
-        });
-
-        self.forceUpdate();
-      })
-      .catch((err) => {
-        console.log('Error getting orders!');
-      });
-  }
-
-  componentWillUnmount(){
+  componentWillUnmount() {
     clearInterval(this.loginInterval);
   }
 
   render() {
     return (
       <div className="container-machine">
-        <Header machineID={this.state.machineInfo.machineID} token={this.state.machineInfo._id} className="container-machine-header" />
-        <ProductList products={this.state.products} toggleProductModal={this.toggleProductModal} />
-        <OrdersList orders={this.state.orders} className="container-machine-orders" />
-        <ProductModal machineID={this.state.machineInfo.machineID} toggleProductModal={this.toggleProductModal} showProductModal={this.state.showProductModal} />
+        <Header
+          machineID={this.props.machine.machineInfo && this.props.machine.machineInfo.machineID}
+          token={this.props.machine.machineInfo && this.props.machine.machineInfo._id}
+          className="container-machine-header"
+        />
+        <ProductList
+          products={this.props.machine.products || []}
+          toggleProductModal={this.toggleProductModal}
+        />
+        <OrdersList
+          orders={this.props.machine.orders || []}
+          className="container-machine-orders"
+        />
+        <ProductModal
+          machineID={this.props.machine.machineInfo && this.props.machine.machineInfo.machineID}
+          toggleProductModal={this.toggleProductModal}
+          showProductModal={this.state.showProductModal}
+        />
       </div>
     );
   }
 }
 
-export default MachinePanel;
+const mapStateToProps = state => {
+  return {
+    machine: state.machine.machines || {}
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getMachineData }
+)(MachinePanel);

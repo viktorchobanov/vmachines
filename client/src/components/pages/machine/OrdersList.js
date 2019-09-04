@@ -7,12 +7,12 @@ class OrdersList extends Component {
             <div className={`panel panel-info ${this.props.className}`}>
                 <div className="panel panel-info item-machine">
                     <h4>
-                        Поръчки:
+                        Orders:
                     </h4>
                 </div>
 
                 {this.props.orders.map((order) => {
-                    return <Order id={order._id} machineID={order.machineID} product={order.order && order.order.name} />
+                    return <Order key={order._id} id={order._id} machineID={order.machineID} product={order.order && order.order.name} />
                 })}
             </div>
         );

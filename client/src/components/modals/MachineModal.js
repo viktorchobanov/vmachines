@@ -48,8 +48,9 @@ class MachineModal extends Component {
   onSubmit(e) {
     e.preventDefault();
     var self = this;
+    var base = 'http://localhost:4000';
 
-    axios.post('/api/machine', self.state.newMachine)
+    axios.post(`${base}/api/machine`, self.state.newMachine)
     .then((res) => {
       self.props.toggleMachineModal();
     })
@@ -73,20 +74,20 @@ class MachineModal extends Component {
           contentLabel="Add Machine"
         >
 
-          <h2 ref={subtitle => this.subtitle = subtitle}>Добави Машина</h2>
+          <h2 ref={subtitle => this.subtitle = subtitle}>Add Machine</h2>
           <form onSubmit={this.onSubmit}>
-            Държава: <br />
+            Country: <br />
             <input onChange={(e) => {this.updateInput(e, 'country')}} className="form-control" type="text" ref="country" required /><br />
-            Град: <br />
+            City: <br />
             <input onChange={(e) => {this.updateInput(e, 'city')}} className="form-control" type="text" name="city" required /><br />
-            Квартал: <br />
+            State: <br />
             <input onChange={(e) => {this.updateInput(e, 'state')}} className="form-control" type="text" name="state" required /><br />
-            Улица: <br />
+            Street: <br />
             <input onChange={(e) => {this.updateInput(e, 'street')}} className="form-control" type="text" name="street" required /><br />
-            Вид Машина: <br />
+            Machine Type: <br />
             <input onChange={(e) => {this.updateInput(e, 'type')}} className="form-control" type="text" name="type" required /><br />
             <button className="btn btn-primary panel-button machine-modal-btn" onClick={this.registerMachine}>
-              <span className="glyphicon glyphicon-plus"></span> Добави Машина
+              <span className="glyphicon glyphicon-plus"></span> Add Machine
                 </button>
           </form>
         </Modal>

@@ -42,10 +42,11 @@ class ProductModal extends Component {
   onSubmit(e) {
     e.preventDefault();
     var self = this
+    var base = 'http://localhost:4000';
 
     self.state.newProduct.machineID = self.props.machineID;
 
-    axios.post('/api/product', self.state.newProduct)
+    axios.post(`${base}/api/product`, self.state.newProduct)
     .then((res) => {
       self.props.toggleProductModal();
     })
@@ -69,18 +70,18 @@ class ProductModal extends Component {
           contentLabel="Add Product"
         >
 
-          <h2 ref={subtitle => this.subtitle = subtitle}>Добави Продукт</h2>
+          <h2 ref={subtitle => this.subtitle = subtitle}>Add Product</h2>
           <form onSubmit={this.onSubmit}>
-            Име на Продукт: <br />
+            Product Name: <br />
             <input onChange={(e) => {this.updateInput(e, 'name')}} className="form-control" type="text" name="name" required /><br />
-            Количество: <br />
+            Quantity: <br />
             <input onChange={(e) => {this.updateInput(e, 'amount')}} className="form-control" type="text" name="amount" required /><br />
-            Цена: <br />
+            Customer Price: <br />
             <input onChange={(e) => {this.updateInput(e, 'price')}} className="form-control" type="text" name="price" required /><br />
-            Цена на зареждане: <br />
+            Wholesale Price: <br />
             <input onChange={(e) => {this.updateInput(e, 'cost')}} className="form-control" type="text" name="cost" required /><br />
             <button className="btn btn-primary panel-button product-btn" onClick={this.registerProduct}>
-              <span className="glyphicon glyphicon-plus"></span>Добави Продукт
+              <span className="glyphicon glyphicon-plus"></span>Add Product
         </button>
           </form>
         </Modal>

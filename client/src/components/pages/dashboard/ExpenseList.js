@@ -11,13 +11,13 @@ class ExpenseList extends Component {
                 <button className="btn btn-primary" onClick={() => {
                     this.props.toggleModal('showExpenseModal')
                 }}>
-                    <span className="glyphicon glyphicon-plus"></span> Добави разход
+                    <span className="glyphicon glyphicon-plus"></span> Add Expense
                     </button>
                 <br />
                 <br />
-                Наем: {this.props.expenses.rent || 0} лв<br />
-                Електричество: {this.props.expenses.electricity || 0} лв<br />
-                Други: {this.props.expenses.others || 0} лв<br />
+                Rent: {this.props.expenses.rent || 0} BGN<br />
+                Electricity: {this.props.expenses.electricity || 0} BGN<br />
+                Other: {this.props.expenses.others || 0} BGN<br />
             </div>
         );
     }

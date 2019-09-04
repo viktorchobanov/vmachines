@@ -1,3 +1,4 @@
+var machine = require('./Machine').Schema;
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt-nodejs');
@@ -5,7 +6,8 @@ var bcrypt = require('bcrypt-nodejs');
 var UserSchema = new Schema({
     username: { type: String, lowercase: true, required: true },
     password: { type: String, required: true },
-    email: { type: String, lowercase: true, required: true }
+    email: { type: String, lowercase: true, required: true },
+    // machines: { type: machine}
 }, { collection: 'users' });
 
 UserSchema.pre('save', function(next) {

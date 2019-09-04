@@ -17,8 +17,12 @@ module.exports = function(router){
     
     router.get('/machines/:owner', controller.getAllMachines);
 
+    router.get('/statistics/:owner', controller.getStatistics);
+
     router.get('/machine/:machineID/info', controller.getMachineByID);
     
+    router.get('/machine/:machineID/statistics', controller.getMachineStatistics);
+
     router.get('/expenses/:owner', controller.getAllExpenses);
     
     router.get('/orders/:owner', controller.getAllOrders);

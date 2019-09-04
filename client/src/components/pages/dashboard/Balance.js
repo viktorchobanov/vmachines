@@ -10,12 +10,12 @@ class Balance extends Component {
             <div className="panel panel-info container-custom">
                 <div className="panel panel-info container-custom">
                     <h3>
-                        Баланс:
+                        Balance:
                     </h3>
                 </div>
-                Приходи: {Math.round(this.props.income * 100) /100} лв<br />
-                Разходи: {this.props.expenses.rent} лв<br />
-                Печалба: {Math.round((this.props.income - this.props.expenses.rent) * 100) /100} лв<br />
+                Income: {Math.round(this.props.income * 100) /100} BGN<br />
+                Expenses: {this.props.expenses.rent} BGN<br />
+                Profit: {Math.round((this.props.income - this.props.expenses.rent) * 100) /100} BGN<br />
             </div>
         );
     }

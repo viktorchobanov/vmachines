@@ -10,7 +10,7 @@ class ProductList extends Component {
         return (
             <div className="panel panel-info container-machine-products">
                 <button className="btn btn-primary panel-button item-machine product-btn" onClick={this.props.toggleProductModal}>
-                    <span className="glyphicon glyphicon-plus"></span>Добави продукт
+                    <span className="glyphicon glyphicon-plus"></span>Add Product
                 </button>
 
                 {this.props.products.map((product) => {

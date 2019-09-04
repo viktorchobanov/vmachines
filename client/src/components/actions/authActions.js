@@ -4,6 +4,8 @@ import { SET_CURRENT_USER } from './types';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import axios from 'axios';
 
+var base = 'http://localhost:4000' || '';
+
 export function logout() {
     return dispatch => {
         localStorage.removeItem('jwtToken');
@@ -14,7 +16,7 @@ export function logout() {
 
 export function login(data) {
     return dispatch => {
-        return axios.post('/api/authenticate', data).then(res => {
+        return axios.post(`${base}/api/authenticate`, data).then(res => {
             const token = res.data.token;
             if (token) {
                 localStorage.setItem('jwtToken', token);

@@ -7,6 +7,7 @@ import setAuthorizationToken from './components/utils/setAuthorizationToken';
 import Login from './components/pages/login/Login';
 import DashboardPanel from './components/pages/dashboard/DashboardPanel';
 import MachinePanel from './components/pages/machine/MachinePanel';
+import Statistics from './components/pages/statistics';
 import { setCurrentUser } from './components/actions/authActions';
 import rootReducer from './components/reducers/rootReducer';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -49,6 +50,10 @@ class App extends Component {
               }} />
               <Route exact path="/machine/:machineID" render={() => {
                 return localStorage.jwtToken ? (<Route component={MachinePanel} />)
+                  : (<Route component={Login} />)
+              }} />
+              <Route exact path="/machine/:machineID/statistics" render={() => {
+                return localStorage.jwtToken ? (<Route component={Statistics} />)
                   : (<Route component={Login} />)
               }} />
 

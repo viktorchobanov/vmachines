@@ -25,13 +25,13 @@ class Machine extends Component {
       <div className="panel panel-default item-machine item-machine-element">
         <a href={`/machine/${this.props.machineID}`}>
           <div>
-            Машина: Машина {this.props.machineID}
+            Name: Vending {this.props.machineID}
             <br />
-            Място: {`${this.props.place.city}, ${this.props.place.state}, ${this.props.place.street}`}
+            Place: {`${this.props.place.city}, ${this.props.place.state}, ${this.props.place.street}`}
           </div>
         </a>
 
-        <button className="btn btn-danger" onClick={this.deleteMachine}>Изтрий</button>
+        <button className="btn btn-danger" onClick={this.deleteMachine}>Delete</button>
       </div>
     );
   }

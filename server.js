@@ -11,13 +11,13 @@ var path = require('path');
 var cors = require('cors')
 const keys = require('./app/config/config');
 
-var Message = require('./app/models/Message');
+var Product = require('./app/models/Product');
 var User = require('./app/models/User')
 
 var port = process.env.PORT || 4000;
 
 app.use(cors())
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "build")))
@@ -45,5 +45,3 @@ app.get('/*', function(req, res){
 app.listen(port, () => {
     console.log(`Listening on port: ${port}`);
 });
-
-

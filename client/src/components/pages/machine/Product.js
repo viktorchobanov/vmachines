@@ -10,8 +10,9 @@ class Product extends Component {
 
   deleteProduct() {
     var self = this;
+    var base = 'http://localhost:4000';
 
-    axios.delete(`/api/product/${this.props.product.name}`)
+    axios.delete(`${base}/api/product/${this.props.product.name}`)
     .then((res) => {
       console.log('Deleted');
     })
@@ -24,14 +25,14 @@ class Product extends Component {
     return (
       <div className="panel panel-default item-machine item-machine-element">
         <div onClick={this.props.toggleProductModal}>
-        <h4><b>Продукт: {this.props.product.name}</b></h4>
+        <h4><b>Product Name: {this.props.product.name}</b></h4>
         <ul>
-            <li>Количество: {this.props.product.amount} бр</li>
-            <li>Цена: {this.props.product.price} лв </li>
-            <li>Цена на зареждане: {this.props.product.cost} лв </li>
+            <li>Quantity: {this.props.product.amount} </li>
+            <li>Consumer Price: {this.props.product.price} BGN </li>
+            <li>Wholesale price : {this.props.product.cost} BGN </li>
         </ul>
         </div>
-        <button className="btn btn-danger" onClick={this.deleteProduct}>Изтрий</button>
+        <button className="btn btn-danger" onClick={this.deleteProduct}>Delete</button>
       </div>
     );
   }
